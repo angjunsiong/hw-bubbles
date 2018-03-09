@@ -12,27 +12,30 @@ function graph(){
 
     var padding = 6,
         radius = d3.scale.log().range([15, 70]).domain([2, 82]),
-        color = d3.scale.category10().domain([0, 15]);
+        color = d3.scale.category20().domain([0, 15]);
+        // edited to present more colours to the chart
 
     var nodes = [];
     var circle = [];
     var force;
 
     var svg = d3.select("div[id=target]").append("svg")
-        .attr("width", 1920)
-        .attr("height", 960)
+        .attr("width", 10000)
+        .attr("height", 5000)
+        // edited to make graph size bigger
         .attr("class", "vis")
       .append("g")
 
     svg.call(tip);
 
     for (var word in scores) {
-      nodes.push({radius: radius(scores[word]), color: color(word.length), word: word, score: scores[word]});  
+      nodes.push({radius: radius(scores[word]/4), color: color(word.length), word: word, score: scores[word]});  
     }
 
     force = d3.layout.force()
       .nodes(nodes)
-      .size([1024, 768])
+      .size([3000, 1500])
+      // Adjusted to increase display area
       .gravity(0.01)
       .charge(-0.01)
       .on("tick", tick)
